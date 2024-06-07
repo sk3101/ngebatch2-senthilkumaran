@@ -52,6 +52,8 @@ app.get('/courses/byid',(req,res)=>{
     res.send('Good Evening!!, you are enrolled with id - ' + query)
 });
 
+app.use(express.json())
+
 //creating an endpoint for a post request
 app.post('/loginUser',(req,res)=> {
     console.log("To create a user login - pass the info as post body", req.body);
@@ -59,6 +61,15 @@ app.post('/loginUser',(req,res)=> {
     res.json({result:object})
 
 });
+
+//creating an endpoint for a post request
+app.post('/createProduct',(req,res)=> {
+    console.log("To create a product", req.body);
+    const objectp = req.body.product;
+    res.json({result:objectp})
+
+});
+
 
 const PORT = 3400;
 
