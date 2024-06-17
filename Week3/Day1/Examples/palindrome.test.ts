@@ -3,6 +3,7 @@ Run with
 > npm install
 > npm test palindrome
 */
+
 import { palindrome } from './palindrome'
 
 describe('When calling the palindrome function', () => {
