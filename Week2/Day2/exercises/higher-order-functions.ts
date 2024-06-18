@@ -16,39 +16,88 @@ export type Developer = {
   language: string
 }
 
+const developers = [
+  { 
+    firstName: 'Sofia', 
+    lastName: 'I.', 
+    country: 'Argentina', 
+    continent: 'Americas', 
+    age: 34, 
+    language: 'Javascript'
+  },
+  { 
+    firstName: 'Aisha', 
+    lastName: 'X.', 
+    country: 'Croatia', 
+    continent: 'Europe', 
+    age: 35, 
+    language: 'Python'
+  },
+  { 
+    firstName: 'Madison', 
+    lastName: 'U.', 
+    country: 'United States', 
+    continent: 'Americas', 
+    age: 23, 
+    language: 'Python'
+  }
+]
+
 
 // countFromEurope should return the number of developers who are from Europe.
 // For the list above it would return 1.
-export function countFromEurope (developers: Developer[]) {
 
+export function countFromEurope (developers: Developer[]) {
+  const onlyEuro = developers.filter((developers) => developers.continent=='Europe');
+  console.log(onlyEuro.length)
 }
+
+countFromEurope(developers)
 
 // getGreetings should return an array where each element contains an appropriate greeting for the matching developer from the input.
 // Greetings should be of the form 'Hi <firstName>, what do you like the most about <language>?'
 // For the list above, it would return ['Hi Sofia, what do you like the most about Javascript?', 'Hi Aisha, what do you like the most about Python?', 'Hi Madison, what do you like the most about Python?']
-export function getGreetings (developers: Developer[]) {
 
+// const shoutOuts = developers.map((items)=>`Hi ${items.firstName}, what do you like the most about ${items.language} ?` );
+// console.log(shoutOuts);
+
+export function getGreetings (developers: Developer[]) {  
+  const shoutOuts = developers.map((items)=>`Hi ${items.firstName}, what do you like the most about ${items.language} ?` );
+  console.log(shoutOuts);
 }
+getGreetings(developers)
 
 // isJSComing should return true if the array contains at least one developer whose language is Javascript.
 // For the list above it would return true.
 export function isJSComing (developers: Developer[]) {
-
+   const onlyJava = developers.filter((developers) => developers.language=='Javascript');
+   console.log(onlyJava.length != 0)
 }
+isJSComing(developers)
 
 // getFirstPythonDeveloper should return the first developer in the array whose language is Python
 // You should return a string formatted like '<firstName>, <country>', or the string 'none' if no python developers are present.
 // For the list above, it would return 'Aisha, Croatia'
-export function getFirstPythonDeveloper (developers: Developer[]) {
 
+export function getFirstPythonDeveloper (developers: Developer[]) {
+  const firstPy = developers.filter((developers) => developers.language=='Python');
+  const nameCon = firstPy.map((items)=>`${items.firstName},${items.country}`)
+  console.log(nameCon[0])
 }
+getFirstPythonDeveloper(developers);
 
 // getAverageAge should return the average age of the developers (rounded down).
 // If there are no developers, return -1
 // For the list above, it would return 30.
-export function getAverageAge(developers: Developer[]) {
 
+export function getAverageAge(developers: Developer[]) {
+// const devag = developers.map((items)=>`${items.age}`)
+// console.log(devag)
+// const sum = devag.reduce((tot,val) => tot + val,0)
+// console.log(arrayAvg)
 }
+
+//getAverageAge(developers)
 
 // getLanguageCounts should return an object representing how many developers of each language there are.
 // For the list above, it would return { Javascript: 1, Python: 2 }

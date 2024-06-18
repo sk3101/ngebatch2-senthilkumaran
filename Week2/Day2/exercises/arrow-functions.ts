@@ -21,9 +21,8 @@ function loadsOfMoney(myWages: number) {
 
 //   // TODO make soMuchMoreMoney() as a one-line arrow expression with loadsOfMoney
 
-const soMuchMoreMoney = (inputnum: number) => {
-  return inputnum * 10
-} 
+const soMuchMoreMoney = (inputnum: number) => inputnum * 10
 
 const resultSum = soMuchMoreMoney(300)
+
 console.log(`resultSum: ${resultSum}`)
