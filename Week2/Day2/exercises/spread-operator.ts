@@ -11,7 +11,6 @@ const academyFolks: string[] = ['Alice', 'Bob', 'Charles', 'Danielle']
 const helloAcademy = (a:any)=>{
   console.log("Hello Academy folks:",...a);
 }
-
 helloAcademy(academyFolks);
 // Call the function that says hello with an exploded array (spread it)
 // TODO
@@ -21,5 +20,6 @@ helloAcademy(academyFolks);
 const academyFolks2: string[] = ['Alice', 'Bob', 'Charles', 'Danielle', 'Akshay','Kalpana','Thangaraj','Sagar']
 // Say hello to all the academy folks using the spread operator
 // TODO
-helloAcademy(academyFolks2);
+const helloAcademy2 = (a:any) =>console.log ("Hello all",...a)
+helloAcademy2(academyFolks2);
 // EOF

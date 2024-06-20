@@ -3,7 +3,7 @@
 // Lets make a function that returns all names at once
 // Sam Byron Mark Aisha Megan
 
-const addNames = 'TODO'
+const addNames = (...args:any)=>{return args};
 
 const resultNames = addNames('Sam', 'Byron', 'Mark', 'Aisha', 'Megan')
 
