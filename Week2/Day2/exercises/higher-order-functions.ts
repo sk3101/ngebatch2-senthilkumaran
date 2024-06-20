@@ -90,32 +90,73 @@ getFirstPythonDeveloper(developers);
 // If there are no developers, return -1
 // For the list above, it would return 30.
 
-export function getAverageAge(developers: Developer[]) {
-// const devag = developers.map((items)=>`${items.age}`)
-// console.log(devag)
-// const sum = devag.reduce((tot,val) => tot + val,0)
-// console.log(arrayAvg)
+export function getAverageAge(developers: Developer[]) {  
+  if (developers.length == 0){
+    return -1;
+    }
+  else
+  {
+  console.log(Math.floor((developers.reduce((age,value)=>age+value.age,0))/developers.length));
+  }
 }
 
-//getAverageAge(developers)
+getAverageAge(developers)
 
 // getLanguageCounts should return an object representing how many developers of each language there are.
 // For the list above, it would return { Javascript: 1, Python: 2 }
 // NB. Developers could know any language (not just JS or Python), so the keys of the object will depend on what developers you get passed.
 export function getLanguageCounts (developers: Developer[]) {
-
+  let lang:{[key:string]:number} = {}
+  developers.map(items => {
+      const lan = items.language
+      if (lang[lan]){
+        lang[lan]++     
+       }
+      else{
+        lang[lan] = 1
+      } 
+  })
+  console.log(lang)
 }
+getLanguageCounts(developers)
 
 // getOldest should return an array which includes the name of the developer who is the oldest.
 // In case of a tie, include all same-age developers listed in the same order as they appeared in the original input array.
 // For the list above, it would return ['Aisha']
 export function getOldest (developers: Developer[]) {
-
+  const devag = developers.sort((a,b)=> b.age - a.age);
+  let oldDev:string[] = []
+  const oldestDev = devag[0].age
+  developers.map(items => {
+      if (items.age == oldestDev)
+      {
+        oldDev = [...oldDev,items.firstName]
+      }  
+  })
+  console.log(oldDev)
 }
+
+getOldest(developers);
 
 // isGlobalGroup should return true if the list contains a developer from each of these 5 zones:
 // 'Africa', 'Americas', 'Asia', 'Europe', 'Oceania'
 // For the list above, it would return false
 export function isGlobalGroup (developers: Developer[]) {
+let conti = [{"Continent":"Africa","Count":1},{"Continent":"Americas","Count":1},{"Continent":"Asia","Count":1},{"Continent":"Europe","Count":1},{"Continent":"Oceania","Count":1}]
+let continentArray=developers.map(items=>items.continent)//to get the continent only from the list and not the count
+conti.forEach(cnt=>{
+  for(let i=0;i<continentArray.length;i++)//iterating through the developer array in a for loop fashin to access theindex values
+  {
+    if(cnt.Continent==continentArray[i])
+    {
+      cnt.Count=0;
+    }
+  }
+})
+if(conti.reduce((a,b)=>a+b.Count,0)==0)
+console.log(true);
+else
+console.log(false);
 
 }
+isGlobalGroup(developers);
