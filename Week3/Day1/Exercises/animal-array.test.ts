@@ -1,15 +1,6 @@
 import { addToArray } from './animal-array'
-/*
-Run with
-> npm install
-> npm test animal-array
-*/
 
-//Tasks
-// - Make every test in the first describe have the item 'Early Bird' at the start of the array
-// - Make sure the array is empty after each test
 
-//This is a test that shows you how the function works and can be tested
 it('I can add an item to an existing array', () => {
   //ARRANGE
   const animalArray: string[] = []
