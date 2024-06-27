@@ -57,57 +57,56 @@ const foodData: Food[] = [
     id: 4
   }
 ]
+const queryUser = async (personName: string): Promise<User> => {
+  if (!personName) {
+    throw new Error("Missing Name");
+  }
 
-const queryUser = (personName: string): Promise<User> =>
-  new Promise((resolve, reject) => {
-    if (!personName) {
-      reject(new Error('Missing Name'))
-    }
+  const result: User = await userData.filter(
+    (user) => user.name === personName
+  )[0];
 
-    const result = userData.filter((user) => user.name === personName)[ 0 ] || null
+  if (!result.name) {
+    throw new Error("Not Found!");
+  }
+  return result
+}
 
-    if (!result.name) {
-      reject(new Error('Not Found!'))
-    } else {
-      resolve(result)
-    }
-  })
+const queryFood = async (foodId: number | null): Promise<Food> => {
+  if (!foodId) {
+    throw new Error("Missing ID")
+  }
 
-const queryFood = (foodId: number | null): Promise<Food> =>
-  new Promise((resolve, reject) => {
-    if (!foodId) {
-      reject(new Error('Missing ID'))
-    }
+  const result: Food = await foodData.filter((food) => food.id === foodId)[0];
 
-    const result = foodData.filter((food) => food.id === foodId)[ 0 ] || null
-
-    if (!result.name) {
-      reject(new Error('Not Found!'))
-    } else {
-      resolve(result)
-    }
-  })
+  if (!result.name) {
+    throw new Error("Not Found!")
+  }
+  return result
+}
 
 // Part 1. Refactor this to use async/await. 
 // Part 2. Refactor this to use a try/catch block to handle errors.
-const findFavouriteFood = (name: string) =>
-  new Promise((resolve, reject) => {
-    queryUser(name)
-      .then((person) => queryFood(person.food))
-      .then((foodItem) => resolve(`${name} likes ${foodItem.name}`))
-      .catch((err) => reject(err))
-  })
+
+const findFavouriteFood = async (name: string) => {
+  try {
+    const userFound = await queryUser(name);
+    const foodFound = await queryFood(userFound?.food);
+    console.log(`${userFound?.name} likes ${foodFound?.name}`);
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 console.log('User data:', userData)
 console.log('Food data:', foodData)
 
 console.log('')
 console.log('Bad Results:')
-// Uncomment these one at a time to test that your refactor works:
-//
-// findFavouriteFood('') //Test rejection for not providing a name
-// findFavouriteFood('Megan') //Test rejection for giving a name that isn't in database
-// findFavouriteFood('Tim') //Test rejection for missing food id
+
+findFavouriteFood('') //Test rejection for not providing a name
+findFavouriteFood('Megan') //Test rejection for giving a name that isn't in database
+findFavouriteFood('Tim') //Test rejection for missing food id
 
 
 // ----- EXERCISES -------------------------------------------------------

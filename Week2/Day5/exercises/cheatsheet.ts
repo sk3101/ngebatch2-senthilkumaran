@@ -122,7 +122,7 @@ Error Handling [try/catch]
 */
 
 try {
-  const data = await sadPromise()
+  const data = sadPromise()
   console.log(data)
 } catch (error) {
   console.log('Oops, something went wrong:', error)

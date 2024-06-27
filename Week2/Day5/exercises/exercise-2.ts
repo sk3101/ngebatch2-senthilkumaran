@@ -63,25 +63,39 @@ const foodData: Food[] = [
 
 // Part 1: Refactor queryUser and queryFood to 'reject' when missing the required values
 const queryUser = (personName: string): Promise<User> =>
-  new Promise((resolve) => {
-    const result = userData.filter((user) => user.name === personName)[ 0 ] || null
-    resolve(result)
-  })
+  new Promise((resolve, reject) => {
+    const isPersonName =
+      userData.filter((user) => user.name === personName).length > 0;
+    if (isPersonName) {
+      resolve(userData.filter((user) => user.name === personName)[0]);
+    } else {
+      reject("error: Person name is not present");
+    }
+  });
 
 // Part 1: Refactor queryUser and queryFood to 'reject' when missing the required values
 const queryFood = (foodId: number | null): Promise<Food> =>
-  new Promise((resolve) => {
-    const result = foodData.filter((food) => food.id === foodId)[ 0 ] || null
-    resolve(result)
-  })
+  new Promise((resolve, reject) => {
+    const isFoodPresent =
+      foodData.filter((food) => food.id === foodId).length > 0 &&
+      foodId !== null;
+    if (isFoodPresent) {
+      resolve(foodData.filter((food) => food.id === foodId)[0]);
+    } else {
+      reject("error: Food ID is not present");
+    }
+  });
+
 
 // Fetch data
 const findFavouriteFood = (name: string) =>
   new Promise((resolve) => {
-    queryUser(name)
-      .then((person) => queryFood(person.food))
-      .then((foodItem) => resolve(`${name} likes ${foodItem.name}`))
-  })
+    resolve(
+      queryUser(name)
+        .then((person) => queryFood(person.food))
+        .then((foodItem) => `${name} likes ${foodItem.name}`)
+    );
+  });
 
 console.log('User data:', userData)
 console.log('Food data:', foodData)
@@ -94,11 +108,3 @@ findFavouriteFood('').then(console.log) // Test rejection for not providing a na
 findFavouriteFood('Megan').then(console.log) // Test rejection for giving a name that doesn't exist
 findFavouriteFood('Tim').then(console.log) // Test rejection for missing food id
 
-
-// ----- EXERCISES -------------------------------------------------------
-
-// There is now a user with data `{ name: 'Tim', food: null }` and a food with data `{ name: 'English', id: null }`
-
-// Part 1: Refactor queryUser and queryFood to 'reject' when missing the required values
-// Part 2. Add '.catch' blocks to these function chains to catch the rejected promises
-// For both of these, add console logs so you can check the output

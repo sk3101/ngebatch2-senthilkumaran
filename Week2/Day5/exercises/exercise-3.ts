@@ -53,36 +53,36 @@ const foodData: Food[] = [
     id: 4
   }
 ]
-
 const queryUser = (personName: string): Promise<User> =>
   new Promise((resolve, reject) => {
     if (!personName) {
-      reject(new Error('Missing Name'))
+      reject(new Error("Missing Name"));
     }
 
-    const result = userData.filter((user) => user.name === personName)[ 0 ] || null
+    const result =
+      userData.filter((user) => user.name === personName)[0] || null;
 
     if (!result.name) {
-      reject(new Error('Not Found!'))
+      reject(new Error("Not Found!"));
     } else {
-      resolve(result)
+      resolve(result);
     }
-  })
+  });
 
 const queryFood = (foodId: number | null): Promise<Food> =>
   new Promise((resolve, reject) => {
     if (!foodId) {
-      reject(new Error('Missing ID'))
+      reject(new Error("Missing ID"));
     }
 
-    const result = foodData.filter((food) => food.id === foodId)[ 0 ] || null
+    const result = foodData.filter((food) => food.id === foodId)[0] || null;
 
     if (!result.name) {
-      reject(new Error('Not Found!'))
+      reject(new Error("Not Found!"));
     } else {
-      resolve(result)
+      resolve(result);
     }
-  })
+  });
 
 // Fetch data
 const findFavouriteFood = (name: string) =>
@@ -90,19 +90,21 @@ const findFavouriteFood = (name: string) =>
     queryUser(name)
       .then((person) => queryFood(person.food))
       .then((foodItem) => resolve(`${name} likes ${foodItem.name}`))
-      .catch((err) => reject(err))
-  })
+      .catch((err) => reject(err));
+  });
 
-console.log('User data:', userData)
-console.log('Food data:', foodData)
+console.log("User data:", userData);
+console.log("Food data:", foodData);
 
-console.log('')
-console.log('Results:')
+console.log("");
+console.log("Results:");
 
-const tasks = []
+const favFood: any = [];
 userData.forEach((user) => {
-  tasks.push(findFavouriteFood(user.name))
-})
+  favFood.push(findFavouriteFood(user.name));
+});
+
+favFood.map((food:any) => food.then(console.log).catch(console.log));
 
 // Part 1: Add some code here to find the favourite food for all users concurrently
 

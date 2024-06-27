@@ -2,7 +2,7 @@
 
 // For examples of running this see zoo-animals.test.js
 
-type AnimalInfo = {
+export type AnimalInfo = {
   name: string,
   swimSpeedKph?: number,
   flippers: number,
